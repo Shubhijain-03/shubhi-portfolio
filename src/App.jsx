@@ -1,6 +1,9 @@
+import { motion } from "framer-motion";
+
 export default function App() {
   return (
-    <div className="min-h-screen bg-slate-900 text-white px-6 md:px-16">
+    <div className="bg-slate-900 text-white scroll-smooth">
+      <Navbar />
       <Hero />
       <About />
       <Skills />
@@ -10,56 +13,85 @@ export default function App() {
   );
 }
 
+function Navbar() {
+  return (
+    <nav className="fixed w-full bg-slate-900/80 backdrop-blur z-50 px-8 py-4 flex justify-between">
+      <h1 className="font-bold text-blue-400">Shubhi Jain</h1>
+      <div className="space-x-6 text-gray-300">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  );
+}
+
+const fade = {
+  hidden: { opacity: 0, y: 40 },
+  show: { opacity: 1, y: 0 },
+};
+
 function Hero() {
   return (
-    <section className="h-screen flex flex-col justify-center">
-      <h1 className="text-5xl md:text-7xl font-bold mb-6">
-        Hi, I’m <span className="text-blue-400">Shubhi Jain</span>
-      </h1>
-
-      <p className="text-xl text-gray-400">
-        Backend Developer | Django | APIs | Automation
-      </p>
-
-      <a
-        href="#projects"
-        className="mt-8 bg-blue-500 px-6 py-3 rounded-xl hover:bg-blue-600 transition w-fit"
+    <section className="h-screen flex flex-col justify-center px-8">
+      <motion.h1
+        initial="hidden"
+        animate="show"
+        variants={fade}
+        transition={{ duration: 0.8 }}
+        className="text-6xl font-bold mb-4"
       >
-        View Projects
-      </a>
+        Hi, I’m <span className="text-blue-400">Shubhi Jain</span>
+      </motion.h1>
+
+      <motion.p
+        initial="hidden"
+        animate="show"
+        variants={fade}
+        transition={{ delay: 0.3 }}
+        className="text-xl text-gray-400"
+      >
+        Backend Developer | Django | APIs | Automation
+      </motion.p>
     </section>
   );
 }
 
 function About() {
   return (
-    <section className="py-20">
-      <h2 className="text-3xl font-bold mb-6">About Me</h2>
-      <p className="text-gray-400 max-w-3xl">
-        Backend developer focused on building secure APIs, automation tools,
-        and real-world systems using Django REST Framework.
+    <motion.section
+      id="about"
+      initial="hidden"
+      whileInView="show"
+      variants={fade}
+      transition={{ duration: 0.6 }}
+      className="py-24 px-8"
+    >
+      <h2 className="text-3xl font-bold mb-4">About Me</h2>
+      <p className="text-gray-400 max-w-2xl">
+        Backend developer focused on building secure APIs and automation
+        systems using Django REST Framework and modern tools.
       </p>
-    </section>
+    </motion.section>
   );
 }
 
 function Skills() {
-  const skills = [
-    "Python",
-    "Django / DRF",
-    "Node.js",
-    "JWT Auth",
-    "SQL",
-    "MongoDB",
-    "Git",
-    "Docker",
-  ];
+  const skills = ["Python", "Django", "Node.js", "SQL", "MongoDB", "Docker"];
 
   return (
-    <section className="py-20">
+    <motion.section
+      id="skills"
+      initial="hidden"
+      whileInView="show"
+      variants={fade}
+      transition={{ duration: 0.6 }}
+      className="py-24 px-8"
+    >
       <h2 className="text-3xl font-bold mb-8">Skills</h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {skills.map((skill) => (
           <div
             key={skill}
@@ -69,37 +101,35 @@ function Skills() {
           </div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }
 
 function Projects() {
   return (
-    <section id="projects" className="py-20">
-      <h2 className="text-3xl font-bold mb-10">Projects</h2>
+    <motion.section
+      id="projects"
+      initial="hidden"
+      whileInView="show"
+      variants={fade}
+      transition={{ duration: 0.6 }}
+      className="py-24 px-8"
+    >
+      <h2 className="text-3xl font-bold mb-8">Projects</h2>
 
-      <div className="grid md:grid-cols-3 gap-8">
-        <Card
-          title="Employee Management API"
-          desc="Role-based backend system with JWT authentication."
-        />
-        <Card
-          title="Smart Home Automation"
-          desc="IoT automation system with real-time control."
-        />
-        <Card
-          title="IRCTC TicketBot"
-          desc="Automated ticket booking using Selenium."
-        />
+      <div className="grid md:grid-cols-3 gap-6">
+        <Card title="Employee API" desc="Secure role-based backend system." />
+        <Card title="Smart Home IoT" desc="Automation with sensors & control." />
+        <Card title="TicketBot" desc="Automated booking workflow." />
       </div>
-    </section>
+    </motion.section>
   );
 }
 
 function Card({ title, desc }) {
   return (
     <div className="bg-gray-900 p-6 rounded-2xl hover:scale-105 transition">
-      <h3 className="text-xl font-semibold mb-3">{title}</h3>
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
       <p className="text-gray-400">{desc}</p>
     </div>
   );
@@ -107,10 +137,16 @@ function Card({ title, desc }) {
 
 function Contact() {
   return (
-    <section className="py-20 text-center">
-      <h2 className="text-3xl font-bold mb-6">Contact</h2>
+    <motion.section
+      id="contact"
+      initial="hidden"
+      whileInView="show"
+      variants={fade}
+      transition={{ duration: 0.6 }}
+      className="py-24 px-8 text-center"
+    >
+      <h2 className="text-3xl font-bold mb-4">Contact</h2>
       <p className="text-gray-400">shubhijain4700@gmail.com</p>
-    </section>
+    </motion.section>
   );
 }
-
